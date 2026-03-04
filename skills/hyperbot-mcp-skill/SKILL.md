@@ -6,9 +6,9 @@
 **Skill Name:** Hyperbot Trading Analytics  
 **Description:** Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
 **Version:** 1.0.0  
-**MCP Server URL / Endpoint:** https://test-mcp.hyperbot.network/mcp
+**MCP Server URL / Endpoint:** https://mcp.hyperbot.network/mcp
 
-**sessionId:** sessionId obtained via SSE at https://test-mcp.hyperbot.network/mcp/sse
+**sessionId:** sessionId obtained via SSE at https://mcp.hyperbot.network/mcp/sse
 
 ---
 
@@ -37,7 +37,7 @@ None
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"fetch_leader_board","arguments":{"period":"7d","sort":"pnl"}},"jsonrpc":"2.0","id":1}'
 ```
@@ -51,7 +51,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"find_smart_money","arguments":{"period":7,"sort":"win-rate","pnlList":true}},"jsonrpc":"2.0","id":2}'
 ```
@@ -66,7 +66,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_tickers","arguments":{}},"jsonrpc":"2.0","id":3}'
 ```
@@ -78,7 +78,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_ticker","arguments":{"address":"ETH"}},"jsonrpc":"2.0","id":4}'
 ```
@@ -92,7 +92,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_klines","arguments":{"coin":"BTC","interval":"15m","limit":100}},"jsonrpc":"2.0","id":5}'
 ```
@@ -105,7 +105,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_market_stats","arguments":{"coin":"BTC","whaleThreshold":100000}},"jsonrpc":"2.0","id":6}'
 ```
@@ -117,7 +117,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_l2_order_book","arguments":{"coin":"BTC"}},"jsonrpc":"2.0","id":7}'
 ```
@@ -138,7 +138,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_whale_positions","arguments":{"coin":"BTC","dir":"long","pnlSide":"profit","frSide":"profit","topBy":"position-value","take":10}},"jsonrpc":"2.0","id":8}'
 ```
@@ -150,7 +150,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_whale_events","arguments":{"limit":20}},"jsonrpc":"2.0","id":9}'
 ```
@@ -162,7 +162,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_whale_directions","arguments":{"coin":"BTC"}},"jsonrpc":"2.0","id":10}'
 ```
@@ -175,7 +175,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_whale_history_ratio","arguments":{"interval":"1d","limit":30}},"jsonrpc":"2.0","id":11}'
 ```
@@ -191,7 +191,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"fetch_trade_history","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678"}},"jsonrpc":"2.0","id":12}'
 ```
@@ -204,7 +204,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_trader_stats","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","period":7}},"jsonrpc":"2.0","id":13}'
 ```
@@ -218,7 +218,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_max_drawdown","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","days":30,"scope":"perp"}},"jsonrpc":"2.0","id":14}'
 ```
@@ -232,7 +232,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_best_trades","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","period":7,"limit":10}},"jsonrpc":"2.0","id":15}'
 ```
@@ -246,7 +246,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_performance_by_coin","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","period":30,"limit":20}},"jsonrpc":"2.0","id":16}'
 ```
@@ -263,7 +263,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_completed_position_history","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","coin":"BTC"}},"jsonrpc":"2.0","id":17}'
 ```
@@ -276,7 +276,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_current_position_history","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","coin":"BTC"}},"jsonrpc":"2.0","id":18}'
 ```
@@ -293,7 +293,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_completed_position_executions","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","coin":"BTC","interval":"4h","limit":50}},"jsonrpc":"2.0","id":19}'
 ```
@@ -308,7 +308,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_current_position_pnl","arguments":{"address":"0x1234567890abcdef1234567890abcdef12345678","coin":"BTC","interval":"4h","limit":20}},"jsonrpc":"2.0","id":20}'
 ```
@@ -324,7 +324,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_traders_accounts","arguments":{"addresses":["0x1234567890abcdef1234567890abcdef12345678","0xabcdef1234567890abcdef1234567890abcdef12"]}},"jsonrpc":"2.0","id":21}'
 ```
@@ -338,7 +338,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 
 **MCP Tool Call Example:**
 ```bash
-curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
+curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via sse' \
   -H 'content-type: application/json' \
   --data-raw '{"method":"tools/call","params":{"name":"get_traders_statistics","arguments":{"period":7,"pnlList":true,"addresses":["0x1234567890abcdef1234567890abcdef12345678","0xabcdef1234567890abcdef1234567890abcdef12"]}},"jsonrpc":"2.0","id":22}'
 ```
@@ -397,7 +397,7 @@ curl 'https://test-mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained
 ## 6. Important Notes
 
 ### MCP Call Instructions
-- **sessionId**: Need to obtain session ID via SSE connection first, GET access to https://test-mcp.hyperbot.network/mcp/sse
+- **sessionId**: Need to obtain session ID via SSE connection first, GET access to https://mcp.hyperbot.network/mcp/sse
 - **JSON-RPC 2.0**: Follows standard JSON-RPC 2.0 protocol
 - **method**: Fixed as `tools/call`
 - **params.name**: MCP tool name (corresponds to @McpTool annotation's name attribute)
