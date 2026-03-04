@@ -17,7 +17,7 @@ Hyperbot Skills helps AI agents (such as Cursor, Claude) effectively install and
 For OpenClaw bots, use the following skill URL:
 
 ```
-https://clawhub.ai/developHyperbotNetwork/hyperbot-mcp
+https://clawhub.ai/developHyperbotNetwork/hyperbot-quote-mcp
 ```
 
 ## What are Skills?
