@@ -1,3 +1,5 @@
+[中文](README_zh.md) | [English](README.md)
+
 # Hyperbot Skills
 
 > Hyperbot MCP (Model Context Protocol) 服务器的 AI 智能体技能集合。

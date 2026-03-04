@@ -1,3 +1,5 @@
+[中文](SKILL_zh.md) | [English](SKILL.md)
+
 # MCP Server Skill 文档
 
 ## 1. 概述

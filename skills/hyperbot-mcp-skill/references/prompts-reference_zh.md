@@ -1,3 +1,5 @@
+[中文](prompts-reference_zh.md) | [English](prompts-reference.md)
+
 # Hyperbot MCP 提示词参考
 
 Hyperbot MCP 服务器提供用于加密货币交易分析、聪明钱追踪、鲸鱼行为监控和市场情绪分析的 **prompts** 和 **tools**。在调用 MCP 功能时（例如从 Cursor 或 Claude）使用这些提示词。

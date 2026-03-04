@@ -1,3 +1,5 @@
+[中文](SKILL_zh.md) | [English](SKILL.md)
+
 # MCP Server Skill Documentation
 
 ## 1. Overview

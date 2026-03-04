@@ -1,3 +1,5 @@
+[中文](prompts-reference_zh.md) | [English](prompts-reference.md)
+
 # Hyperbot MCP Prompts Reference
 
 The Hyperbot MCP server exposes **prompts** and **tools** for cryptocurrency trading analysis, smart money tracking, whale behavior monitoring, and market sentiment analysis. Use these prompts when invoking MCP capabilities (e.g. from Cursor or Claude).
