@@ -1,11 +1,16 @@
+
+---
+name: Hyperbot Trading Analytics  
+description: 提供 Hyperbot 平台的交易数据分析能力，包括聪明钱追踪、鲸鱼监控、市场行情查询、交易统计等功能。适用于加密货币交易者进行市场分析和决策。
+---
+
 [中文](SKILL_zh.md) | [English](SKILL.md)
 
-# MCP Server Skill 文档
-
 ## 1. 概述
-**Skill Name:** Hyperbot Trading Analytics  
-**Description:** 提供 Hyperbot 平台的交易数据分析能力，包括聪明钱追踪、鲸鱼监控、市场行情查询、交易统计等功能。适用于加密货币交易者进行市场分析和决策。  
-**Version:** 1.0.0  
+**MCP Server Skill 文档**
+
+**Version:** 1.0.0
+
 **MCP Server URL / Endpoint:** https://mcp.hyperbot.network/mcp
 
 **sessionId:** 通过 SSE 获取的 sessionId https://mcp.hyperbot.network/mcp/sse

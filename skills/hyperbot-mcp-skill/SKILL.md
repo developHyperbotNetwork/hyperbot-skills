@@ -1,11 +1,17 @@
+
+---
+name: Hyperbot Trading Analytics  
+Description: Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
+---
+
 [中文](SKILL_zh.md) | [English](SKILL.md)
 
-# MCP Server Skill Documentation
-
 ## 1. Overview
-**Skill Name:** Hyperbot Trading Analytics  
-**Description:** Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
+
+**MCP Server Skill Documentation**
+
 **Version:** 1.0.0  
+
 **MCP Server URL / Endpoint:** https://mcp.hyperbot.network/mcp
 
 **sessionId:** sessionId obtained via SSE at https://mcp.hyperbot.network/mcp/sse
