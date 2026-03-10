@@ -1,10 +1,7 @@
-
 ---
 name: Hyperbot Trading Analytics  
-Description: Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
+description: Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
 ---
-
-[中文](SKILL_zh.md) | [English](SKILL.md)
 
 ## 1. Overview
 
@@ -12,15 +9,216 @@ Description: Provides trading data analytics capabilities for the Hyperbot platf
 
 **Version:** 1.0.0  
 
-**MCP Server URL / Endpoint:** https://mcp.hyperbot.network/mcp
+### Quick Start for Agents
 
-**sessionId:** sessionId obtained via SSE at https://mcp.hyperbot.network/mcp/sse
+This MCP server provides cryptocurrency trading analytics tools. To use these tools:
+
+1. **Connect via SSE:** `https://mcp.hyperbot.network/mcp/sse`
+2. **Send requests to:** `https://mcp.hyperbot.network/mcp/message?sessionId={your-session-id}`
+3. **Protocol:** JSON-RPC 2.0
+
+**Available Tool Categories:**
+- Smart Money & Leaderboard: `fetch_leader_board`, `find_smart_money`
+- Market Data: `get_tickers`, `get_ticker`, `get_klines`, `get_market_stats`, `get_l2_order_book`
+- Whale Monitoring: `get_whale_positions`, `get_whale_events`, `get_whale_directions`, `get_whale_history_ratio`
+- Trader Analysis: `fetch_trade_history`, `get_trader_stats`, `get_max_drawdown`, `get_best_trades`, `get_performance_by_coin`
+- Position History: `get_completed_position_history`, `get_current_position_history`, `get_completed_position_executions`, `get_current_position_pnl`
+- Batch Queries: `get_traders_accounts`, `get_traders_statistics`
 
 ---
 
-## 2. Resources
+## 2. MCP Server Installation
 
-### 2.1 Defined Resources
+### 2.1 For Cursor Users
+
+Add the following configuration to your Cursor MCP settings:
+
+**Method 1: Via UI**
+- Open `Cursor Settings` → `Tools & MCP` → `Add New MCP Server`
+- Name: `hyperbot-trading`
+- Type: `sse`
+- URL: `https://mcp.hyperbot.network/mcp/sse`
+
+**Method 2: Edit config file directly**
+
+Edit `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "hyperbot-trading": {
+      "type": "sse",
+      "url": "https://mcp.hyperbot.network/mcp/sse"
+    }
+  }
+}
+```
+
+**After configuration:** Restart Cursor to apply changes.
+
+---
+
+### 2.2 For Claude Desktop Users
+
+> **Important:** Claude Desktop requires `mcp-remote` to connect to remote SSE servers. Make sure you have Node.js installed.
+
+**Configuration File Locations:**
+- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+**Configuration:**
+
+```json
+{
+  "mcpServers": {
+    "hyperbot-trading": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
+    }
+  }
+}
+```
+
+**Setup Steps:**
+1. Open Claude Desktop → Settings → Developer → Edit Config
+2. Add the configuration above
+3. Save and restart Claude Desktop (Cmd/Ctrl + R)
+4. Verify the tools appear in your MCP tools list
+
+**Prerequisite:** Node.js 18+ must be installed. Install via:
+- macOS: `brew install node`
+- Windows: Download from https://nodejs.org/
+
+---
+
+### 2.3 For OpenClaw Users
+
+Add the following configuration to your OpenClaw MCP settings:
+
+**Method 1: Via UI**
+- Open Settings → MCP → Add Server
+- Name: `hyperbot-trading`
+- URL: `https://mcp.hyperbot.network/mcp/sse`
+
+**Method 2: Edit config file**
+
+```json
+{
+  "mcpServers": {
+    "hyperbot-trading": {
+      "type": "sse",
+      "url": "https://mcp.hyperbot.network/mcp/sse"
+    }
+  }
+}
+```
+
+**After configuration:** Restart OpenClaw to apply changes.
+
+---
+
+### 2.4 For Linux Users
+
+**Configuration File Locations:**
+
+| Client | Config Path |
+|--------|-------------|
+| Cursor | `~/.cursor/mcp.json` |
+| Claude Desktop (AppImage) | `~/.config/Claude/claude_desktop_config.json` |
+| Claude Desktop (Snap) | `~/.local/share/Claude/claude_desktop_config.json` |
+
+**Quick Setup - Cursor on Linux:**
+
+```bash
+mkdir -p ~/.cursor
+cat > ~/.cursor/mcp.json << 'EOF'
+{
+  "mcpServers": {
+    "hyperbot-trading": {
+      "type": "sse",
+      "url": "https://mcp.hyperbot.network/mcp/sse"
+    }
+  }
+}
+EOF
+```
+
+**Quick Setup - Claude Desktop on Linux:**
+
+```bash
+# Ensure Node.js is installed
+sudo apt install nodejs npm  # Debian/Ubuntu
+# or
+sudo dnf install nodejs npm  # Fedora
+
+# For AppImage installation
+mkdir -p ~/.config/Claude
+cat > ~/.config/Claude/claude_desktop_config.json << 'EOF'
+{
+  "mcpServers": {
+    "hyperbot-trading": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
+    }
+  }
+}
+EOF
+```
+
+---
+
+### 2.5 For Other MCP Clients
+
+**Connection Endpoints:**
+
+| Endpoint Type | URL |
+|---------------|-----|
+| SSE Endpoint | `https://mcp.hyperbot.network/mcp/sse` |
+| Message Endpoint | `https://mcp.hyperbot.network/mcp/message` |
+
+**For clients supporting direct SSE URL:**
+```json
+{
+  "type": "sse",
+  "url": "https://mcp.hyperbot.network/mcp/sse"
+}
+```
+
+**For clients requiring mcp-remote (like Claude Desktop):**
+```json
+{
+  "command": "npx",
+  "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
+}
+```
+
+---
+
+### 2.6 Verification
+
+After installation, verify the connection by checking if these tools are available in your MCP client:
+
+**Core Tools:**
+- `fetch_leader_board` - Smart money leaderboard
+- `find_smart_money` - Discover smart money addresses
+- `get_tickers` / `get_ticker` / `get_klines` - Market data
+- `get_whale_positions` / `get_whale_events` - Whale monitoring
+- `get_trader_stats` / `get_performance_by_coin` - Trader analysis
+
+**Troubleshooting:**
+
+| Issue | Solution |
+|-------|----------|
+| Tools not appearing | Restart your MCP client |
+| Connection timeout | Check network/firewall settings |
+| Claude Desktop error | Ensure Node.js 18+ is installed |
+| "mcp-remote not found" | Run `npm install -g mcp-remote` |
+
+---
+
+## 3. Resources
+
+### 3.1 Defined Resources
 None
 
 **Usage Notes:**
@@ -31,9 +229,11 @@ None
 
 ---
 
-## 3. Tools
+## 4. Tools
 
-### 3.1 Leaderboard & Smart Money Discovery
+> **How to Call Tools:** Use JSON-RPC 2.0 format. First obtain a sessionId via SSE connection to `https://mcp.hyperbot.network/mcp/sse`, then send requests to `https://mcp.hyperbot.network/mcp/message?sessionId={sessionId}`.
+
+### 4.1 Leaderboard & Smart Money Discovery
 
 #### fetch_leader_board
 **Function:** Get Hyperbot smart money leaderboard  
@@ -64,7 +264,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 3.2 Market Data
+### 4.2 Market Data
 
 #### get_tickers
 **Function:** Get latest trading prices for all markets  
@@ -130,7 +330,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 3.3 Whale Monitoring
+### 4.3 Whale Monitoring
 
 #### get_whale_positions
 **Function:** Get whale position information  
@@ -188,7 +388,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 3.4 Trader Analysis
+### 4.4 Trader Analysis
 
 #### fetch_trade_history
 **Function:** Query historical trade details for a specific wallet address  
@@ -259,7 +459,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 3.5 Position History
+### 4.5 Position History
 
 #### get_completed_position_history
 **Function:** Get completed position history. Deep analysis of complete historical position data for a coin  
@@ -321,7 +521,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 3.6 Batch Queries
+### 4.6 Batch Queries
 
 #### get_traders_accounts
 **Function:** Batch query account information, supports up to 50 addresses  
@@ -351,14 +551,138 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-## 4. Prompts
+## 5. Prompts
 
 | Prompt Name | Purpose | Template / Example |
 |-------------|--------|------------------|
-| smart-money-analysis | Smart money address analysis and trading recommendations | ```You are a quantitative trading expert. Analyze the input smart money address data: 1. Identify characteristics of high win-rate addresses 2. Analyze their position preferences and trading style 3. Provide copy-trading strategy suggestions Output in JSON format``` |
-| whale-tracking | Whale behavior analysis and market impact assessment | ```Analyze whale position data and latest movements: 1. Judge main force intentions 2. Assess market impact 3. Predict short-term trends 4. Provide trading recommendations Output in JSON format``` |
-| market-sentiment | Market sentiment analysis | ```Based on market data (order book, active orders, whale long/short ratio): 1. Analyze current market sentiment 2. Identify support/resistance levels 3. Judge short-term trends Output in JSON format``` |
-| trader-evaluation | Trader capability evaluation | ```Comprehensively evaluate a trader's ability: 1. Analyze win rate and profit/loss ratio 2. Assess risk management capability 3. Analyze coin preferences 4. Provide comprehensive score and improvement suggestions Output in JSON format``` |
+| smart-money-analysis | Smart money address analysis and trading recommendations | ```You are a quantitative trading expert. Analyze the provided smart money address data and provide actionable insights:
+
+**Input Data Structure:**
+- Address list with win rates, PnL, ROI, trade counts
+- Position data and trading history
+- Performance metrics by time period
+
+**Analysis Requirements:**
+1. **High Win-Rate Address Characteristics**: Identify common patterns (trading frequency, position sizing, coin preferences)
+2. **Trading Style Classification**: Categorize as scalper, swing trader, or position trader based on holding periods
+3. **Risk Assessment**: Analyze max drawdown, position concentration, leverage usage
+4. **Copy-Trading Strategy**: Provide specific recommendations including:
+   - Which addresses to follow based on risk tolerance
+   - Position sizing recommendations
+   - Entry/exit timing guidance
+   - Risk management rules
+
+**Output Format (JSON):**
+{
+  "topAddresses": [{"address": "...", "winRate": "...", "style": "...", "riskLevel": "..."}],
+  "patterns": {"commonTraits": [...], "avoidTraits": [...]},
+  "recommendations": {"followList": [...], "positionSizing": "...", "riskRules": [...]}
+}``` |
+| whale-tracking | Whale behavior analysis and market impact assessment | ```You are a market intelligence analyst specializing in whale behavior. Analyze the provided whale data and assess market impact:
+
+**Input Data Structure:**
+- Whale position data (size, direction, PnL)
+- Recent whale events (open/close positions)
+- Historical long/short ratio trends
+- Order book depth around current price
+
+**Analysis Requirements:**
+1. **Whale Positioning Analysis**: 
+   - Current long/short distribution
+   - Position concentration by coin
+   - Profit/loss status of major positions
+2. **Intent Interpretation**: 
+   - Identify accumulation vs distribution patterns
+   - Detect potential market manipulation signals
+   - Assess conviction levels based on position sizes
+3. **Market Impact Prediction**:
+   - Short-term price pressure assessment (1-24 hours)
+   - Liquidity impact on order books
+   - Potential cascade effects if whales exit
+4. **Trading Recommendations**:
+   - Optimal entry/exit timing relative to whale movements
+   - Risk management adjustments needed
+   - Coins to watch based on whale activity
+
+**Output Format (JSON):**
+{
+  "whaleSummary": {"totalPositions": "...", "longShortRatio": "...", "avgPositionSize": "..."},
+  "intentAnalysis": {"dominantSentiment": "...", "keyPatterns": [...]},
+  "marketImpact": {"shortTerm": "...", "liquidityRisk": "..."},
+  "recommendations": {"action": "...", "targetCoins": [...], "riskLevel": "..."}
+}``` |
+| market-sentiment | Market sentiment analysis | ```You are a market sentiment analyst. Analyze the provided market data and determine overall market conditions:
+
+**Input Data Structure:**
+- Order book depth (bids/asks, spread, imbalance)
+- Active order statistics (long/short ratio, whale order percentage)
+- Recent price action and volume
+- Whale long/short historical trends
+
+**Analysis Requirements:**
+1. **Sentiment Classification**: 
+   - Classify as Extreme Fear, Fear, Neutral, Greed, or Extreme Greed
+   - Provide confidence score (0-100%)
+   - Identify sentiment trend (improving/deteriorating)
+2. **Technical Levels**:
+   - Key support levels with strength assessment
+   - Key resistance levels with strength assessment
+   - Critical price zones to watch
+3. **Market Structure Analysis**:
+   - Order book imbalance interpretation
+   - Whale positioning vs retail sentiment divergence
+   - Liquidity concentration zones
+4. **Trend Forecasting**:
+   - Short-term trend prediction (next 4-24 hours)
+   - Key catalysts that could change sentiment
+   - Risk events to monitor
+
+**Output Format (JSON):**
+{
+  "sentiment": {"classification": "...", "score": "...", "trend": "..."},
+  "keyLevels": {"support": [...], "resistance": [...]},
+  "marketStructure": {"orderBookBias": "...", "whaleRetailDivergence": "..."},
+  "forecast": {"shortTerm": "...", "catalysts": [...], "riskLevel": "..."}
+}``` |
+| trader-evaluation | Trader capability evaluation | ```You are a professional trading performance analyst. Conduct a comprehensive evaluation of the trader based on provided data:
+
+**Input Data Structure:**
+- Overall statistics (win rate, PnL, trade count, Sharpe ratio)
+- Performance breakdown by coin
+- Best/worst trades analysis
+- Max drawdown history
+- Position history and execution patterns
+
+**Evaluation Criteria:**
+1. **Performance Metrics (Score 0-100)**:
+   - Risk-adjusted returns (Sharpe/Sortino ratio)
+   - Consistency of profits (month-over-month)
+   - Win rate vs profit factor balance
+2. **Risk Management Assessment**:
+   - Max drawdown analysis (frequency, recovery time)
+   - Position sizing discipline
+   - Stop-loss adherence
+3. **Trading Skill Analysis**:
+   - Entry timing accuracy
+   - Exit strategy effectiveness
+   - Ability to adapt to market conditions
+4. **Coin Specialization**:
+   - Performance by coin (identify strengths/weaknesses)
+   - Diversification vs concentration analysis
+   - Coin selection skill
+5. **Improvement Recommendations**:
+   - Specific weaknesses to address
+   - Suggested strategy adjustments
+   - Risk parameter optimizations
+
+**Output Format (JSON):**
+{
+  "overallScore": {"total": "...", "performance": "...", "riskManagement": "...", "skill": "..."},
+  "strengths": [...],
+  "weaknesses": [...],
+  "coinAnalysis": {"best": "...", "worst": "...", "recommendation": "..."},
+  "recommendations": {"immediate": [...], "longTerm": [...]}
+}``` |
 
 **Usage Notes:**
 - Prompts can be dynamically populated with resources content
@@ -367,7 +691,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-## 5. Usage Examples
+## 6. Usage Examples
 
 ### Example 1: Discover and Analyze Smart Money Addresses
 
@@ -400,21 +724,37 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-## 6. Important Notes
+## 7. Important Notes
 
-### MCP Call Instructions
-- **sessionId**: Need to obtain session ID via SSE connection first, GET access to https://mcp.hyperbot.network/mcp/sse
-- **JSON-RPC 2.0**: Follows standard JSON-RPC 2.0 protocol
-- **method**: Fixed as `tools/call`
-- **params.name**: MCP tool name (corresponds to @McpTool annotation's name attribute)
-- **params.arguments**: Tool parameters, passed as key-value pairs
+### 7.1 MCP Call Instructions
 
-### Rate Limiting
+**Request Format (JSON-RPC 2.0):**
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "<tool_name>",
+    "arguments": { /* tool parameters */ }
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}
+```
+
+**Key Points:**
+- **sessionId**: Obtain via SSE connection to `https://mcp.hyperbot.network/mcp/sse`
+- **method**: Always `tools/call` for tool invocation
+- **params.name**: The tool name (e.g., `fetch_leader_board`, `get_ticker`)
+- **params.arguments**: Tool-specific parameters as key-value pairs
+
+### 7.2 Rate Limiting
 - Single IP request frequency limit: 100 requests/minute
 - Batch interfaces support maximum 50 addresses
 
-### Data Update Frequency
-- Market data: Real-time updates
-- Smart money leaderboard: Updated hourly
-- Whale positions: Real-time updates
-- Trader statistics: Updated every 5 minutes
+### 7.3 Data Update Frequency
+| Data Type | Update Frequency |
+|-----------|------------------|
+| Market data | Real-time |
+| Smart money leaderboard | Hourly |
+| Whale positions | Real-time |
+| Trader statistics | Every 5 minutes |
