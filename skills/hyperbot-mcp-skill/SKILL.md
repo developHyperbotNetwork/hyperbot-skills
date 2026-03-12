@@ -97,12 +97,33 @@ Edit `~/.cursor/mcp.json`:
 
 ### For OpenClaw Users
 
-Add the following configuration to your OpenClaw MCP settings:
+> **Recommended:** OpenClaw works best with `mcporter` for connecting to remote SSE servers.
+
+**Setup Steps:**
+
+**Step 1: Install mcporter Skill**
+
+First, install the mcporter skill from ClawHub:
+- Visit: https://clawhub.ai/steipete/mcporter
+- Or search for `mcporter` in OpenClaw's skill marketplace
+- Install the skill
+
+**Step 2: Install mcporter Package**
+
+If you don't have `mcporter` installed, run:
+```bash
+npm install -g mcporter
+```
+
+**Step 3: Configure MCP Server**
+
+Add the following to your OpenClaw MCP settings:
 
 **Method 1: Via UI**
 - Open Settings → MCP → Add Server
 - Name: `hyperbot-trading`
-- URL: `https://mcp.hyperbot.network/mcp/sse`
+- Command: `mcporter`
+- Args: `https://mcp.hyperbot.network/mcp/sse`
 
 **Method 2: Edit config file**
 
@@ -110,8 +131,8 @@ Add the following configuration to your OpenClaw MCP settings:
 {
   "mcpServers": {
     "hyperbot-trading": {
-      "type": "sse",
-      "url": "https://mcp.hyperbot.network/mcp/sse"
+      "command": "mcporter",
+      "args": ["https://mcp.hyperbot.network/mcp/sse"]
     }
   }
 }
