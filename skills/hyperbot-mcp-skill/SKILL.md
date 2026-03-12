@@ -1,35 +1,39 @@
 ---
 name: Hyperbot Trading Analytics  
-description: Provides trading data analytics capabilities for the Hyperbot platform, including smart money tracking, whale monitoring, market data queries, and trader statistics. Suitable for cryptocurrency traders conducting market analysis and decision-making.  
+description: Provides cryptocurrency trading data analytics including smart money tracking, whale monitoring, market data queries, and trader statistics. Use this skill when users need to analyze trading data, track whale movements, evaluate trader performance, or get market insights from the Hyperbot platform.
+trigger: 
+  - 分析聪明钱
+  - 查看鲸鱼持仓
+  - 查询交易数据
+  - 获取市场行情
+  - 评估交易员
+  - smart money analysis
+  - whale tracking
+  - trader statistics
+  - market data
 ---
 
-## 1. Overview
+## Overview
 
-**MCP Server Skill Documentation**
+**Your Role:** You are a professional cryptocurrency trading data analyst assistant. Your job is to help users access and analyze trading data from the Hyperbot platform using the available MCP tools.
 
-**Version:** 1.0.0  
+**Core Capabilities:**
+- Smart Money & Leaderboard tracking
+- Whale position monitoring  
+- Market data queries (prices, K-lines, order books)
+- Trader performance analysis
+- Position history tracking
 
-### Quick Start for Agents
-
-This MCP server provides cryptocurrency trading analytics tools. To use these tools:
-
-1. **Connect via SSE:** `https://mcp.hyperbot.network/mcp/sse`
-2. **Send requests to:** `https://mcp.hyperbot.network/mcp/message?sessionId={your-session-id}`
-3. **Protocol:** JSON-RPC 2.0
-
-**Available Tool Categories:**
-- Smart Money & Leaderboard: `fetch_leader_board`, `find_smart_money`
-- Market Data: `get_tickers`, `get_ticker`, `get_klines`, `get_market_stats`, `get_l2_order_book`
-- Whale Monitoring: `get_whale_positions`, `get_whale_events`, `get_whale_directions`, `get_whale_history_ratio`
-- Trader Analysis: `fetch_trade_history`, `get_trader_stats`, `get_max_drawdown`, `get_best_trades`, `get_performance_by_coin`
-- Position History: `get_completed_position_history`, `get_current_position_history`, `get_completed_position_executions`, `get_current_position_pnl`
-- Batch Queries: `get_traders_accounts`, `get_traders_statistics`
+**Connection Info:**
+- **SSE Endpoint:** `https://mcp.hyperbot.network/mcp/sse`
+- **Message Endpoint:** `https://mcp.hyperbot.network/mcp/message?sessionId={sessionId}`
+- **Protocol:** JSON-RPC 2.0
 
 ---
 
-## 2. MCP Server Installation
+## MCP Server Installation
 
-### 2.1 For Cursor Users
+### For Cursor Users
 
 Add the following configuration to your Cursor MCP settings:
 
@@ -58,7 +62,7 @@ Edit `~/.cursor/mcp.json`:
 
 ---
 
-### 2.2 For Claude Desktop Users
+### For Claude Desktop Users
 
 > **Important:** Claude Desktop requires `mcp-remote` to connect to remote SSE servers. Make sure you have Node.js installed.
 
@@ -91,7 +95,7 @@ Edit `~/.cursor/mcp.json`:
 
 ---
 
-### 2.3 For OpenClaw Users
+### For OpenClaw Users
 
 Add the following configuration to your OpenClaw MCP settings:
 
@@ -117,7 +121,7 @@ Add the following configuration to your OpenClaw MCP settings:
 
 ---
 
-### 2.4 For Linux Users
+### For Linux Users
 
 **Configuration File Locations:**
 
@@ -167,7 +171,7 @@ EOF
 
 ---
 
-### 2.5 For Other MCP Clients
+### For Other MCP Clients
 
 **Connection Endpoints:**
 
@@ -194,7 +198,7 @@ EOF
 
 ---
 
-### 2.6 Verification
+### Verification
 
 After installation, verify the connection by checking if these tools are available in your MCP client:
 
@@ -216,9 +220,73 @@ After installation, verify the connection by checking if these tools are availab
 
 ---
 
-## 3. Resources
+## How to Use This Skill
 
-### 3.1 Defined Resources
+### Workflow
+
+When a user requests trading data analysis, follow these steps:
+
+1. **Understand Intent**: Identify what type of analysis the user needs
+2. **Select Tools**: Choose appropriate MCP tools based on the request
+3. **Execute Calls**: Call tools with correct parameters
+4. **Analyze Results**: Process and interpret the returned data
+5. **Present Insights**: Provide clear, actionable analysis to the user
+
+### Tool Selection Guide
+
+| User Request Type | Recommended Tools | Analysis Prompt |
+|-------------------|-------------------|-----------------|
+| "Find top traders" | `fetch_leader_board`, `find_smart_money` | smart-money-analysis |
+| "What's BTC price?" | `get_ticker`, `get_klines` | - |
+| "Whale activity on ETH" | `get_whale_positions`, `get_whale_events`, `get_whale_directions` | whale-tracking |
+| "Analyze this trader" | `get_trader_stats`, `get_performance_by_coin`, `fetch_trade_history` | trader-evaluation |
+| "Market sentiment" | `get_market_stats`, `get_l2_order_book`, `get_whale_history_ratio` | market-sentiment |
+
+### Few-Shot Examples
+
+**Example 1: User asks "帮我找一下最近7天胜率最高的聪明钱地址"**
+
+```
+Step 1: Identify intent → Find high win-rate smart money addresses
+Step 2: Select tool → find_smart_money
+Step 3: Call tool with params:
+  {
+    "period": 7,
+    "sort": "win-rate",
+    "pnlList": true
+  }
+Step 4: Present results with analysis
+```
+
+**Example 2: User asks "分析这个交易员的表现: 0x1234...5678"**
+
+```
+Step 1: Identify intent → Analyze trader performance
+Step 2: Select tools → get_trader_stats, get_performance_by_coin
+Step 3: Call tools:
+  - get_trader_stats(address="0x1234...5678", period=30)
+  - get_performance_by_coin(address="0x1234...5678", period=30, limit=20)
+Step 4: Use trader-evaluation prompt for comprehensive analysis
+Step 5: Present evaluation report
+```
+
+**Example 3: User asks "BTC现在鲸鱼持仓情况如何？"**
+
+```
+Step 1: Identify intent → Check BTC whale positions
+Step 2: Select tools → get_whale_positions, get_whale_directions
+Step 3: Call tools:
+  - get_whale_positions(coin="BTC", dir="long", topBy="position-value", take=10)
+  - get_whale_directions(coin="BTC")
+Step 4: Use whale-tracking prompt for analysis
+Step 5: Present whale activity summary
+```
+
+---
+
+## Resources
+
+### Defined Resources
 None
 
 **Usage Notes:**
@@ -229,11 +297,29 @@ None
 
 ---
 
-## 4. Tools
+## Tools Reference
 
-> **How to Call Tools:** Use JSON-RPC 2.0 format. First obtain a sessionId via SSE connection to `https://mcp.hyperbot.network/mcp/sse`, then send requests to `https://mcp.hyperbot.network/mcp/message?sessionId={sessionId}`.
+### Important Rules (Red Lines)
 
-### 4.1 Leaderboard & Smart Money Discovery
+**MUST DO:**
+- Always validate wallet addresses start with `0x` before calling trader-related tools
+- Use appropriate `period` values: 1-90 days for trader analysis, 24h/7d/30d for leaderboards
+- Include `pnlList: true` when user wants to see profit/loss trends
+- Call multiple related tools together for comprehensive analysis
+
+**MUST NOT DO:**
+- Do NOT call `get_current_position_history` without checking if the address has an active position (will return 400 error)
+- Do NOT exceed 50 addresses in batch queries (`get_traders_accounts`, `get_traders_statistics`)
+- Do NOT make more than 100 requests per minute (rate limit)
+- Do NOT guess coin symbols - use `get_tickers` to get valid symbols if unsure
+
+### How to Call Tools
+
+Use JSON-RPC 2.0 format. First obtain a sessionId via SSE connection to `https://mcp.hyperbot.network/mcp/sse`, then send requests to `https://mcp.hyperbot.network/mcp/message?sessionId={sessionId}`.
+
+### Tool Categories
+
+#### Leaderboard & Smart Money Discovery
 
 #### fetch_leader_board
 **Function:** Get Hyperbot smart money leaderboard  
@@ -264,7 +350,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 4.2 Market Data
+#### Market Data
 
 #### get_tickers
 **Function:** Get latest trading prices for all markets  
@@ -330,7 +416,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 4.3 Whale Monitoring
+#### Whale Monitoring
 
 #### get_whale_positions
 **Function:** Get whale position information  
@@ -388,7 +474,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 4.4 Trader Analysis
+#### Trader Analysis
 
 #### fetch_trade_history
 **Function:** Query historical trade details for a specific wallet address  
@@ -459,7 +545,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 4.5 Position History
+#### Position History
 
 #### get_completed_position_history
 **Function:** Get completed position history. Deep analysis of complete historical position data for a coin  
@@ -521,7 +607,7 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-### 4.6 Batch Queries
+#### Batch Queries
 
 #### get_traders_accounts
 **Function:** Batch query account information, supports up to 50 addresses  
@@ -551,7 +637,20 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-## 5. Prompts
+## Analysis Prompts
+
+### When to Use Prompts
+
+Use these prompts when you need to provide structured analysis of trading data:
+
+| Scenario | Prompt to Use |
+|----------|---------------|
+| Analyzing smart money addresses | `smart-money-analysis` |
+| Interpreting whale movements | `whale-tracking` |
+| Evaluating overall market conditions | `market-sentiment` |
+| Assessing trader performance | `trader-evaluation` |
+
+### Prompt Templates
 
 | Prompt Name | Purpose | Template / Example |
 |-------------|--------|------------------|
@@ -691,42 +790,99 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 
 ---
 
-## 6. Usage Examples
+## Complete Usage Examples
+
+### Example Output Format
+
+When presenting analysis results, use this structure:
+
+```markdown
+## Analysis Summary
+
+### Key Findings
+- Finding 1
+- Finding 2
+- Finding 3
+
+### Detailed Data
+[Present relevant tool output]
+
+### Recommendations
+- Recommendation 1
+- Recommendation 2
+```
 
 ### Example 1: Discover and Analyze Smart Money Addresses
 
-1. Call Tool: `find_smart_money(7, "win-rate", true)`
+**Scenario:** User wants to find and analyze top-performing traders
+
+**Execution Steps:**
+1. Call Tool: `find_smart_money(period=7, sort="win-rate", pnlList=true)`
 2. Get list of high win-rate smart money addresses
-3. Use Prompt: `smart-money-analysis` to analyze characteristics of these addresses
-4. Generate analysis report and copy-trading recommendations
+3. Use Prompt: `smart-money-analysis` to analyze characteristics
+4. Generate analysis report with copy-trading recommendations
 
-### Example 2: Whale Behavior Monitoring
+**Expected Output:**
+```markdown
+## Smart Money Analysis Report
 
-1. Call Tool: `get_whale_events(20)` to get latest whale movements
-2. Call Tool: `get_whale_directions("BTC")` to view BTC whale long/short ratio
-3. Use Prompt: `whale-tracking` to analyze whale behavior
-4. Generate market impact assessment report
+### Top Performers (7 Days)
+| Address | Win Rate | PnL | Trading Style |
+|---------|----------|-----|---------------|
+| 0x... | 75% | +$50K | Swing Trader |
 
-### Example 3: In-depth Trader Analysis
+### Key Patterns
+- High win-rate addresses tend to hold positions 2-5 days
+- Most profitable traders focus on BTC and ETH
+- Risk management: avg 2-3x leverage
 
-1. Call Tool: `get_trader_stats(address, 30)` to get basic statistics
-2. Call Tool: `get_performance_by_coin(address, 30, 20)` to view coin-specific performance
-3. Call Tool: `get_completed_position_history(address, "BTC")` to view historical positions
-4. Use Prompt: `trader-evaluation` to generate comprehensive evaluation report
-
-### Example 4: Comprehensive Market Sentiment Analysis
-
-1. Call Tool: `get_all_mids()` to get market mid prices
-2. Call Tool: `get_l2_order_book("BTC")` to get order book data
-3. Call Tool: `get_market_stats("BTC", 100000)` to get active order statistics
-4. Call Tool: `get_whale_history_ratio("1d", 30)` to get historical long/short ratio
-5. Use Prompt: `market-sentiment` to generate market sentiment analysis report
+### Copy-Trading Recommendations
+- Follow addresses with >60% win rate and consistent PnL
+- Position size: 10-20% of their typical position
+- Entry timing: Within 1 hour of their open position
+```
 
 ---
 
-## 7. Important Notes
+### Example 2: Whale Behavior Monitoring
 
-### 7.1 MCP Call Instructions
+**Scenario:** User wants to understand whale activity on BTC
+
+**Execution Steps:**
+1. Call Tool: `get_whale_events(limit=20)` - latest whale movements
+2. Call Tool: `get_whale_directions(coin="BTC")` - BTC long/short ratio
+3. Call Tool: `get_whale_positions(coin="BTC", topBy="position-value", take=10)`
+4. Use Prompt: `whale-tracking` for analysis
+
+---
+
+### Example 3: In-depth Trader Analysis
+
+**Scenario:** User wants to evaluate a specific trader
+
+**Execution Steps:**
+1. Call Tool: `get_trader_stats(address, period=30)` - basic stats
+2. Call Tool: `get_performance_by_coin(address, period=30, limit=20)` - coin breakdown
+3. Call Tool: `get_completed_position_history(address, coin="BTC")` - position history
+4. Use Prompt: `trader-evaluation` for comprehensive report
+
+---
+
+### Example 4: Market Sentiment Analysis
+
+**Scenario:** User wants overall market sentiment
+
+**Execution Steps:**
+1. Call Tool: `get_l2_order_book("BTC")` - order book depth
+2. Call Tool: `get_market_stats("BTC", whaleThreshold=100000)` - active orders
+3. Call Tool: `get_whale_history_ratio(interval="1d", limit=30)` - historical ratio
+4. Use Prompt: `market-sentiment` for sentiment report
+
+---
+
+## Important Notes
+
+### MCP Call Instructions
 
 **Request Format (JSON-RPC 2.0):**
 ```json
@@ -747,14 +903,23 @@ curl 'https://mcp.hyperbot.network/mcp/message?sessionId=sessionId obtained via 
 - **params.name**: The tool name (e.g., `fetch_leader_board`, `get_ticker`)
 - **params.arguments**: Tool-specific parameters as key-value pairs
 
-### 7.2 Rate Limiting
+### Rate Limiting
 - Single IP request frequency limit: 100 requests/minute
 - Batch interfaces support maximum 50 addresses
 
-### 7.3 Data Update Frequency
+### Data Update Frequency
 | Data Type | Update Frequency |
 |-----------|------------------|
 | Market data | Real-time |
 | Smart money leaderboard | Hourly |
 | Whale positions | Real-time |
 | Trader statistics | Every 5 minutes |
+
+### Error Handling Guide
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| 400 Bad Request | Invalid parameters | Check parameter types and ranges |
+| 400 (current position) | No active position | Skip this tool, use completed position history instead |
+| 429 Too Many Requests | Rate limit exceeded | Wait and retry |
+| Connection failed | Network issue | Check SSE connection |
