@@ -33,49 +33,39 @@ trigger:
 
 ## MCP Server Installation
 
-### For Cursor Users
+This MCP server is hosted remotely and accessed via SSE (Server-Sent Events) endpoint. Choose your client below for installation instructions.
 
-Add the following configuration to your Cursor MCP settings:
+### Cursor
 
-**Method 1: Via UI**
-- Open `Cursor Settings` → `Tools & MCP` → `Add New MCP Server`
-- Name: `hyperbot-trading`
-- Type: `sse`
-- URL: `https://mcp.hyperbot.network/mcp/sse`
-
-**Method 2: Edit config file directly**
-
-Edit `~/.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "hyperbot-trading": {
-      "type": "sse",
-      "url": "https://mcp.hyperbot.network/mcp/sse"
-    }
-  }
-}
-```
-
-**After configuration:** Restart Cursor to apply changes.
-
----
-
-### For Claude Desktop Users
-
-> **Important:** Claude Desktop requires `mcp-remote` to connect to remote SSE servers. Make sure you have Node.js installed.
-
-**Configuration File Locations:**
-- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+**Configuration File:** `~/.cursor/mcp.json`
 
 **Configuration:**
 
 ```json
 {
   "mcpServers": {
-    "hyperbot-trading": {
+    "hyperbot-quote-mcp": {
+      "type": "http",
+      "url": "https://mcp.hyperbot.network/mcp/sse"
+    }
+  }
+}
+```
+
+---
+
+### Claude Code
+
+> **Note:** Claude Code requires `mcp-remote` to connect to remote SSE servers.
+
+**Configuration File:** `~/.claude/CLAUDE.md`
+
+**Configuration:**
+
+```json
+{
+  "mcpServers": {
+    "hyperbot-quote-mcp": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
     }
@@ -84,53 +74,29 @@ Edit `~/.cursor/mcp.json`:
 ```
 
 **Setup Steps:**
-1. Open Claude Desktop → Settings → Developer → Edit Config
-2. Add the configuration above
-3. Save and restart Claude Desktop (Cmd/Ctrl + R)
-4. Verify the tools appear in your MCP tools list
-
-**Prerequisite:** Node.js 18+ must be installed. Install via:
-- macOS: `brew install node`
-- Windows: Download from https://nodejs.org/
+1. Open Claude Code
+2. Run `/mcp` command to open MCP configuration
+3. Add the configuration above
+4. Save and restart Claude Code
+5. Verify the tools appear in your MCP tools list
 
 ---
 
-### For OpenClaw Users
+### OpenClaw
 
 > **Recommended:** OpenClaw works best with `mcporter` for connecting to remote SSE servers.
 
-**Setup Steps:**
-
-**Step 1: Install mcporter Skill**
-
-First, install the mcporter skill from ClawHub:
-- Visit: https://clawhub.ai/steipete/mcporter
-- Or search for `mcporter` in OpenClaw's skill marketplace
-- Install the skill
-
-**Step 2: Install mcporter Package**
-
-If you don't have `mcporter` installed, run:
+**Prerequisite:** Install mcporter
 ```bash
 npm install -g mcporter
 ```
 
-**Step 3: Configure MCP Server**
-
-Add the following to your OpenClaw MCP settings:
-
-**Method 1: Via UI**
-- Open Settings → MCP → Add Server
-- Name: `hyperbot-trading`
-- Command: `mcporter`
-- Args: `https://mcp.hyperbot.network/mcp/sse`
-
-**Method 2: Edit config file**
+**Configuration:**
 
 ```json
 {
   "mcpServers": {
-    "hyperbot-trading": {
+    "hyperbot-quote-mcp": {
       "command": "mcporter",
       "args": ["https://mcp.hyperbot.network/mcp/sse"]
     }
@@ -138,61 +104,9 @@ Add the following to your OpenClaw MCP settings:
 }
 ```
 
-**After configuration:** Restart OpenClaw to apply changes.
-
 ---
 
-### For Linux Users
-
-**Configuration File Locations:**
-
-| Client | Config Path |
-|--------|-------------|
-| Cursor | `~/.cursor/mcp.json` |
-| Claude Desktop (AppImage) | `~/.config/Claude/claude_desktop_config.json` |
-| Claude Desktop (Snap) | `~/.local/share/Claude/claude_desktop_config.json` |
-
-**Quick Setup - Cursor on Linux:**
-
-```bash
-mkdir -p ~/.cursor
-cat > ~/.cursor/mcp.json << 'EOF'
-{
-  "mcpServers": {
-    "hyperbot-trading": {
-      "type": "sse",
-      "url": "https://mcp.hyperbot.network/mcp/sse"
-    }
-  }
-}
-EOF
-```
-
-**Quick Setup - Claude Desktop on Linux:**
-
-```bash
-# Ensure Node.js is installed
-sudo apt install nodejs npm  # Debian/Ubuntu
-# or
-sudo dnf install nodejs npm  # Fedora
-
-# For AppImage installation
-mkdir -p ~/.config/Claude
-cat > ~/.config/Claude/claude_desktop_config.json << 'EOF'
-{
-  "mcpServers": {
-    "hyperbot-trading": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
-    }
-  }
-}
-EOF
-```
-
----
-
-### For Other MCP Clients
+### Other MCP Clients
 
 **Connection Endpoints:**
 
@@ -200,24 +114,6 @@ EOF
 |---------------|-----|
 | SSE Endpoint | `https://mcp.hyperbot.network/mcp/sse` |
 | Message Endpoint | `https://mcp.hyperbot.network/mcp/message` |
-
-**For clients supporting direct SSE URL:**
-```json
-{
-  "type": "sse",
-  "url": "https://mcp.hyperbot.network/mcp/sse"
-}
-```
-
-**For clients requiring mcp-remote (like Claude Desktop):**
-```json
-{
-  "command": "npx",
-  "args": ["-y", "mcp-remote", "https://mcp.hyperbot.network/mcp/sse"]
-}
-```
-
----
 
 ### Verification
 
@@ -238,6 +134,10 @@ After installation, verify the connection by checking if these tools are availab
 | Connection timeout | Check network/firewall settings |
 | Claude Desktop error | Ensure Node.js 18+ is installed |
 | "mcp-remote not found" | Run `npm install -g mcp-remote` |
+
+If the above method fails to install, please search online for how to install the mcp tool depending on the agent used by the user.
+
+Users can also install using natural language.
 
 ---
 
